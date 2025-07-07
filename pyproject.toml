@@ -1,0 +1,23 @@
+[project]
+name = "python3-12"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "google-genai",
+    "google-generativeai>=0.3.0",
+    "groq",
+    "openai",
+    "pydantic",
+    "pydantic-settings",
+    "streamlit",
+    "qdrant-client",
+    "langsmith",
+    "langchain-openai>=0.3.27",
+    "langchain>=0.3.26",
+    "langchain-core>=0.3.68",
+    "langchain-community>=0.3.27",
+    "ragas",
+    "rapidfuzz"
+]

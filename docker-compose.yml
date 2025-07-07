@@ -1,0 +1,24 @@
+# All configuration for docker based services
+# For this project, we'll use streamlit and qdrant deployed as docker containers managed at the same time
+
+services:
+  streamlit-app: # qdrant database would be able to reach streamlit-app by calling the streamlit-app service
+    build: # what kind of container do you want to build?
+      context: . # where is the Dockerfile?
+      dockerfile: Dockerfile # what is the Dockerfile?
+    ports:
+      - 8501:8501 # what port do you want to expose? Since it's a streamlit app, we'll use the default port 8501
+    env_file: # what environment variables do you want to use?
+      - .env # what is the .env file?
+    restart: unless-stopped # what is the restart policy?
+    volumes: # allows us to mount volumes to the container
+      - ./src/chatbot-ui/:/app/src/chatbot-ui # this is where we want to mount it because of Dockerfile's content stating WORKDIR /app
+  
+  qdrant:
+    image: qdrant/qdrant
+    ports:
+      - 6333:6333   # Referring to the RestAPI
+      - 6334:6334   # Referring to the GrpcAPI
+    volumes:
+      - ./qdrant_storage:/qdrant/storage:z    # Any data added here either local run or on the container will be updated in this folder consistently
+    restart: unless-stopped # what is the restart policy?
